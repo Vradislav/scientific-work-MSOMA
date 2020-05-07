@@ -9,9 +9,9 @@ def f(x):
     #return -math.cos(x[0])*math.cos(x[1])*math.exp(-1*(((x[0] - math.pi)**2)+((x[1] - math.pi)**2)))
 
     # функция Птица min=-106.7645, x,y(-2pi,2pi), x=-1.5708 y=-3.1416 or x=4.7124 y=3.1416
-    #return math.sin(x[0])*math.exp((1-math.cos(x[1]))**2)+math.cos(x[1])*math.exp((1-math.sin(x[0]))**2) + ((x[0]-x[1])**2)
+    return math.sin(x[0])*math.exp((1-math.cos(x[1]))**2)+math.cos(x[1])*math.exp((1-math.sin(x[0]))**2) + ((x[0]-x[1])**2)
 
-    # трехшорбая функция min=0, x,y(-5,5), x=0 y=0
+    # трехгорбая функция min=0, x,y(-5,5), x=0 y=0
     #return 2*(x[0]**2)-1.05*(x[0]**4)+(1/6)*(x[0]**6)+x[0]*x[1]+(x[1]**2)
 
     # функция Экли  min=-20, x,y(-5,5), x=0 y=0
@@ -19,8 +19,8 @@ def f(x):
     #    0.5 * (math.cos(2 * math.pi * x[0]) + math.cos(2 * math.pi * x[1])))
 
     # функция Гольдман-Прайса  min=3, x,y(-2,2), x=0 y=-1
-    return (1 + ((x[0] + x[1] + 1) ** 2) * (19 - 14 * x[0] + 3 * (x[0] ** 2) - 14 * x[1] + 6 * x[0] * x[1] + 3 * (x[1] ** 2))) * (
-                30 + ((2 * x[0] - 3 * x[1]) ** 2) * (18 - 32 * x[0] + 12 * (x[0] ** 2) + 48 * x[1] - 36 * x[0] * x[1] + 27 * (x[1] ** 2)))
+    #return (1 + ((x[0] + x[1] + 1) ** 2) * (19 - 14 * x[0] + 3 * (x[0] ** 2) - 14 * x[1] + 6 * x[0] * x[1] + 3 * (x[1] ** 2))) * (
+    #            30 + ((2 * x[0] - 3 * x[1]) ** 2) * (18 - 32 * x[0] + 12 * (x[0] ** 2) + 48 * x[1] - 36 * x[0] * x[1] + 27 * (x[1] ** 2)))
 
 
 # создание популяции
@@ -130,43 +130,20 @@ def MSOMA_count(pop_size, num_of_x, a, b, NStep, prt, Migrations, MinDist):
 
 
 # задание параметров
-pop_size = 50
+pop_size = 30
 num_of_x = 2
-prt = 0.6
-NStep = 40
-Migrations = 200
+prt = 0.7
+NStep = 20
+Migrations = 40
 MinDist = 0.0000000000000000000000000001
-a = [-2, -2]
-b = [2, 2]
+a = [-2*math.pi, -2*math.pi]
+b = [2*math.pi, 2*math.pi]
 
 # вызов функции MSOMA
 # MSOMA(размер_популяции, число_переменных, ограничения_а, ограничения_b, Количество_шагов, prt, число_миграций, минимальное_расстояние)
-aver_f = 0
-aver_time = 0
-min_f = 1000
-for i in range(10):
-    x, f_x, loop, time_run = MSOMA_count(pop_size, num_of_x, a, b, NStep, prt, Migrations, MinDist)
-    aver_f += f_x
-    aver_time += time_run
-    if f_x < min_f:
-        min_f = f_x
-aver_f /= 10
-aver_time /= 10
-
-sigma = 0
-for i in range(10):
-    x, f_x, loop, time_run = MSOMA_count(pop_size, num_of_x, a, b, NStep, prt, Migrations, MinDist)
-    sigma += ((f_x - aver_f)**2)
-sigma = math.sqrt(sigma/9.9)
-
-print("average f(x) = ", aver_f)
-print("average time = ", aver_time)
-print("sigma = ", sigma)
-print("min f = ", min_f)
-
-"""x, f_x, loop, time_run = MSOMA_count(pop_size, num_of_x, a, b, NStep, prt, Migrations, MinDist)
+x, f_x, loop, time_run = MSOMA_count(pop_size, num_of_x, a, b, NStep, prt, Migrations, MinDist)
 
 print("min f(x) = ", np.round(f(x), 8))
 print("x* = ", np.round(x, 8))
 print("loop = ", loop)
-print("--- run time %s seconds ---" % time_run)"""
+print("--- run time %s seconds ---" % time_run)
